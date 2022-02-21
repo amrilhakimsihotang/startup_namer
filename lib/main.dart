@@ -39,20 +39,32 @@ class _RandomWordsState extends State<RandomWords> {
           }
 
           final alreadySaved = _saved.contains(_suggestions[index]);
-
+//Part 2
           return ListTile(
             title: Text(
               _suggestions[index].asPascalCase,
               style: _biggerFont,
             ),
-            trailing: Icon(alreadySaved ? Icons.favorite: Icons.favorite_border,
-            color: alreadySaved ? Colors.red: null,
-            semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
+            trailing: Icon(
+              alreadySaved ? Icons.favorite : Icons.favorite_border,
+              color: alreadySaved ? Colors.red : null,
+              semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
             ),
+
+            //part 3
+            onTap: () {
+              setState(() {
+                if (alreadySaved) {
+                  _saved.remove(_suggestions[index]);
+                } else {
+                  _saved.add(_suggestions[index]);
+                }
+              });
+            },
           );
         },
       ),
-);
+    );
   }
 }
 
@@ -60,5 +72,5 @@ class RandomWords extends StatefulWidget {
   const RandomWords({Key? key}) : super(key: key);
 
   @override
-  _RandomWordsState createState() => _RandomWordsState();
+  State<RandomWords> createState() => _RandomWordsState();
 }
